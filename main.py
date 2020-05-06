@@ -6,20 +6,16 @@ from time import time
 Features:
 - generating QR code for a given URL
 - using custom colors and size for code generation
-- downloading qr code as .png file to specific directory"""
-
-"""TO-DO:
-- module that reads a list of URLs from Excel spreadsheet and generates QRs for that list"""
+- downloading qr code as .png file to specific directory
+- reading list of URLs from spreadsheet and generating QR codes for them"""
 
 
 # FILES INFORMATION
-DOWNLOAD_DIRECTORY = "D:/Projects/Graphics" \
-                     "/Сертифікат конференція - Безпекова компонента сучасного життєвого середовища/QR/"
-SPREADSHEET_PATH = "D:/Projects/Graphics" \
-                   "/Сертифікат конференція - Безпекова компонента сучасного життєвого середовища/Учасники.xlsx"
-WORKSHEET = "Сертифікат"
-COLUMN = "F"
-INIT_ROW = 2
+DOWNLOAD_DIRECTORY = "D:/Projects/Graphics/Сертифікат квест - День безпекових наук/QR/"
+SPREADSHEET_PATH = "D:/Projects/Graphics/Сертифікат квест - День безпекових наук/Учасники Quest.xlsx"
+WORKSHEET = "Сертифікати"
+COLUMN = "B"
+INIT_ROW = 1
 
 # STYLE
 FORECOLOR = "0f355a"
@@ -29,14 +25,12 @@ BACKCOLOR = "fdbb22"
 def generate_qrs_from_spreadsheet():
     start_time = time()
     urls = get_urls_list(SPREADSHEET_PATH, column=COLUMN, start_row=INIT_ROW, worksheet_name=WORKSHEET)
-    qr_number = 1
 
     print("Generating QR Codes...")
     for url in urls:
-        qr_file_name = str(qr_number) + ".png"
+        qr_file_name = url[-2:] + ".png"
         qr_url = get_generated_qr_url(url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
         download_qr_image_by_url(qr_url, qr_file_name, download_directory=DOWNLOAD_DIRECTORY)
-        qr_number += 1
     print("DONE!")
     print("Time spent: " + str(time() - start_time))
 
@@ -50,4 +44,4 @@ def generate_single_qr(file_name, url):
 
 if __name__ == "__main__":
     generate_qrs_from_spreadsheet()
-    generate_single_qr("qr.png", "google.com")
+    # generate_single_qr("qr.png", "google.com")

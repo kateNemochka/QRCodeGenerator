@@ -36,3 +36,4 @@ def download_qr_image_by_url(url, file_name, download_directory="C:/Users/Kate/D
     if response.status_code == 200:
         with open(download_directory+file_name, 'wb') as f:
             f.write(response.content)
+            print("Saved QR at: " + download_directory + file_name)
