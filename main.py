@@ -26,7 +26,7 @@ FORECOLOR = "0f355a"
 BACKCOLOR = "fdbb22"
 
 
-def generate_codes_from_spreadsheet():
+def generate_qrs_from_spreadsheet():
     start_time = time()
     urls = get_urls_list(SPREADSHEET_PATH, column=COLUMN, start_row=INIT_ROW, worksheet_name=WORKSHEET)
     qr_number = 1
@@ -41,5 +41,13 @@ def generate_codes_from_spreadsheet():
     print("Time spent: " + str(time() - start_time))
 
 
+def generate_single_qr(file_name, url):
+    start_time = time()
+    print("Generating QR Code...")
+    qr_url = get_generated_qr_url(url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
+    download_qr_image_by_url(qr_url, file_name, download_directory=DOWNLOAD_DIRECTORY)
+
+
 if __name__ == "__main__":
-    generate_codes_from_spreadsheet()
+    generate_qrs_from_spreadsheet()
+    generate_single_qr("qr.png", "google.com")
