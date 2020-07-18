@@ -1,8 +1,10 @@
 import requests
 
-"""QR Codes generation using API service
+"""
+QR Codes generation using API service
 http://qrcode.youlikeshare.com
-found at https://rapidapi.com/ resource"""
+found at https://rapidapi.com/ resource
+"""
 
 
 API_URL = "https://pierre2106j-qrcode.p.rapidapi.com/api"

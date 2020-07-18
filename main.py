@@ -2,12 +2,14 @@ from qr_code_generator import *
 from spreadsheet_reader import *
 from time import time
 
-"""QR Code Generator v1.0
+"""
+QR Code Generator v1.0
 Features:
 - generating QR code for a given URL
 - using custom colors and size for code generation
 - downloading qr code as .png file to specific directory
-- reading list of URLs from spreadsheet and generating QR codes for them"""
+- reading list of URLs from spreadsheet and generating QR codes for them
+"""
 
 
 # FILES INFORMATION
