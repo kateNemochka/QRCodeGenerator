@@ -9,7 +9,7 @@ API_URL = "https://pierre2106j-qrcode.p.rapidapi.com/api"
 
 
 # GENERATING QR CODE AND GETTING ITS URL
-def get_generated_qr_url(text, type="url", width="10",
+def get_generated_qr_url(api_key, text, type="url", width="10",
                      backcolor="ffffff", forecolor="000000") -> str:
     querystring = {
         "backcolor": backcolor,
@@ -22,7 +22,7 @@ def get_generated_qr_url(text, type="url", width="10",
 
     headers = {
         "x-rapidapi-host": "pierre2106j-qrcode.p.rapidapi.com",
-        "x-rapidapi-key": "f8bb72f15cmshb9c497207c8216ap12c4d4jsn38b4d6da75a3"
+        "x-rapidapi-key": api_key
     }
 
     response = requests.request("GET", API_URL, headers=headers, params=querystring)

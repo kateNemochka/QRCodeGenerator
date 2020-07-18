@@ -11,8 +11,8 @@ Features:
 
 
 # FILES INFORMATION
-DOWNLOAD_DIRECTORY = "D:/Projects/Graphics/Сертифікат квест - День безпекових наук/QR/"
-SPREADSHEET_PATH = "D:/Projects/Graphics/Сертифікат квест - День безпекових наук/Учасники Quest.xlsx"
+DOWNLOAD_DIRECTORY = "D:/Projects/Graphics/Сертифікати/Квест - День безпекових наук/QR/"
+SPREADSHEET_PATH = "D:/Projects/Graphics/Сертифікати/Квест - День безпекових наук/Учасники.xlsx"
 WORKSHEET = "Сертифікати"
 COLUMN = "B"
 INIT_ROW = 1
@@ -22,26 +22,35 @@ FORECOLOR = "0f355a"
 BACKCOLOR = "fdbb22"
 
 
-def generate_qrs_from_spreadsheet():
+def generate_qrs_from_spreadsheet(api_key):
     start_time = time()
     urls = get_urls_list(SPREADSHEET_PATH, column=COLUMN, start_row=INIT_ROW, worksheet_name=WORKSHEET)
 
     print("Generating QR Codes...")
     for url in urls:
         qr_file_name = url[-2:] + ".png"
-        qr_url = get_generated_qr_url(url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
+        qr_url = get_generated_qr_url(api_key, url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
         download_qr_image_by_url(qr_url, qr_file_name, download_directory=DOWNLOAD_DIRECTORY)
     print("DONE!")
     print("Time spent: " + str(time() - start_time))
 
 
-def generate_single_qr(file_name, url):
+def generate_single_qr(api_key, file_name, url):
     start_time = time()
     print("Generating QR Code...")
-    qr_url = get_generated_qr_url(url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
+    qr_url = get_generated_qr_url(api_key, url, width="10", forecolor=FORECOLOR, backcolor=BACKCOLOR)
     download_qr_image_by_url(qr_url, file_name, download_directory=DOWNLOAD_DIRECTORY)
 
 
+def generate_qr_from_base_link(api_key, link_base, start_number, end_number):
+    for number in range(start_number, end_number + 1):
+        generate_single_qr(api_key, file_name=str(number) + ".png", url=link_base + ('0' + str(number))[-2:])
+
+
 if __name__ == "__main__":
-    generate_qrs_from_spreadsheet()
-    # generate_single_qr("qr.png", "google.com")
+    API_KEY = input("Enter your API key: ")
+    # generate_qrs_from_spreadsheet(API_KEY)
+    # generate_single_qr(API_KEY, "p02.png", "https://kztdop.npu.edu.ua/vydani-sertyfikaty/p200429n02")
+    generate_qr_from_base_link(api_key=API_KEY, link_base="https://kztdop.npu.edu.ua/vydani-sertyfikaty/q200429n",
+                               start_number=55,
+                               end_number=72)
